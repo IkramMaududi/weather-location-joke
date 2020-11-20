@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather</title>
+    <link rel="icon" href="img/weather.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" defer src="js/DOM.js"></script>
+
+</head>
+<body>
+    <div class="main-content">
+        {{>header}}
+        <p> Use this page to get to your weather (and jokes and c*t)!</p>
+        <form>
+            <input type="text" placeholder="Location">
+            <button>Search</button>
+        </form>
+
+        <!--These two paragraphs below are for weather and geolocation-->
+        <div>
+            <p id="message1"></p>
+            <p id="message2"></p>
+            <br><br>
+        </div>
+
+        <!--These two paragraphs below are for joke-->
+        <div>
+            <p id="joke1"></p>
+            <p id="joke2"></p>
+            <br><br>
+        </div>
+
+        <!--This is for cat image-->
+        <div id="cat0">
+            <p id="cat1"></p>
+        </div>
+   </div>
+    {{>footer}}
+</body>
+</html>
