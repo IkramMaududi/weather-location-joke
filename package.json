@@ -1,5 +1,5 @@
 {
-  "name": "get weather & location",
+  "name": "get-weather-location-extras",
   "version": "1.0.0",
   "description": "",
   "main": "src/app.js",

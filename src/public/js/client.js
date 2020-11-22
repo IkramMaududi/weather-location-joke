@@ -27,7 +27,7 @@ weatherForm.addEventListener('submit', (e) => {
         return response;
     }
     // get the location, weather, joke, and cat in order
-    fetch(`http://localhost:3000/weather?address=${search.value}`)
+    fetch(`/weather?address=${search.value}`)
     .then(handleErrors)
     .then ( res => res.json() 
         .then ( data => {
