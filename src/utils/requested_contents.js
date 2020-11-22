@@ -44,10 +44,10 @@ const joke = (callback) => {
     request( { url: jokeUrl, json: true}, (error, { body } = {} ) => {
         if (error) {
             callback('Unable to get the joke!', undefined);
-        } else if (body.type == single) {
+        } else if (body.type == "single") {
             callback(undefined, {
                 line1: body.joke,
-                line2: '-------------------------------------------------------'
+                line2: '-----------------------------------------------------------------------------------'
             } );
         } else {
             callback(undefined, {
@@ -64,7 +64,9 @@ const cat = (callback) => {
         if (error) {
             callback('Unable to call the cat!', undefined);
         } else {
-            callback(undefined, {catImageUrl: body[0].url});
+            callback(undefined, {
+                catImageUrl: body[0].url
+            } );
         };
     } );
 }

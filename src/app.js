@@ -4,7 +4,7 @@ const express = require('express');
 const hbs = require('hbs');
 
 // import requested content
-const { geocode, weather, joke, cat } = require('./utils/requested_content.js');
+const { geocode, weather, joke, cat } = require('./utils/requested_contents.js');
 
 // run express app
 const app = express();
@@ -57,56 +57,52 @@ app.get( '/weather', (req, res) => {
             error: 'Address must be provided'
         });
     };
-    // get the geolocation & weather
+    // get the geolocation, weather, joke, and cat respectively
     geocode( input, (error1, {latitude, longitude, location} = {}) => {
         if (error1) {
-            return res.send({
-                error: error1
-            });
+            return res.send({ error1 });
         };
         weather( latitude, longitude, (error2, outputCurrentWeather) => {
             if (error2) {
                 return res.send({
-                    error: error2
+                    location: `${location}, (${latitude}, ${longitude})`,
+                    error2
                 });
             };
-            res.send({
-              location: `${location}, (${latitude}, ${longitude})`,
-              weather: outputCurrentWeather
-            });
-        });
-    });
-    // get the joke
-    joke ( (error3, {line1, line2} = {}) => {
-        if (error3) {
-            return res.send({ error : error3 });
-        } else {
-            res.send({
-                line1,
-                line2
-            });
-        };
-    });
-    // get the cat
-    cat( (error4, {catImageUrl} = {}) => {
-        if (error4) {
-            return res.send({ error : error4 });
-        } else {
-            res.send({ catImageUrl });
-        };
-    });
-});
+            // res.send({
+            //     location: `${location}, (${latitude}, ${longitude})`,
+            //     weather: outputCurrentWeather,
+            // })
 
+            joke ( (error3, {line1, line2} = {}) => {
+                if (error3) {
+                    return res.send({ 
+                        location: `${location}, (${latitude}, ${longitude})`,
+                        weather: outputCurrentWeather,
+                        error3 
+                    });
+                };
+                cat( (error4, {catImageUrl} = {}) => {
+                    if (error4) {
+                        return res.send({ 
+                            location: `${location}, (${latitude}, ${longitude})`,
+                            weather: outputCurrentWeather,
+                            line1,
+                            line2,
+                            error4 
+                        });
+                    };
+                    res.send({
+                        location: `${location}, (${latitude}, ${longitude})`,
+                        weather: outputCurrentWeather,
+                        line1,
+                        line2,
+                        catImageUrl
+                    });
+                });
+            });
 
-app.get( '/products', (req,res) => {
-    if (!req.query.search) {
-        return res.send({
-            error: 'You must provide a search term!'
         });
-    };
-    console.log(req.query.search);
-    req.send({
-        products: []
     });
 });
 
@@ -127,5 +123,5 @@ app.get( '*', (req,res) => {
 });
 
 // turning on local server
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 app.listen( port, () => console.log(`Server is up on port ${port}`) ); 
